@@ -28,7 +28,9 @@ The **AI-Powered Mock Interview Android Application** is designed to assist user
 | **Kotlin**            | Primary programming language for Android development.        |
 | **Jetpack Compose**   | Modern UI toolkit for building native UIs in Android.        |
 | **Firebase Firestore**| NoSQL cloud database for real-time data storage and retrieval.|
+| **Hilt**              | Dependency injection framework for managing dependencies efficiently.      |
 | **MVVM Architecture** | Ensures a clean architecture and maintainable codebase.      |
+
 
 ## 📂 Project Structure
 
