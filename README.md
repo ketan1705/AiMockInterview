@@ -21,6 +21,10 @@ The **AI-Powered Mock Interview Android Application** is designed to assist user
 - **Secure Storage:** Safely store user data, including answers, ratings, and feedback.
 - **Progress Tracking:** Monitor your improvement over time with historical data access.
 
+### ✅ AI-Powered Features
+- Utilizes Generative AI for enhanced question generation and intelligent feedback.
+- Supports voice-based answering for a realistic interview experience.
+
 ## 🛠️ Tech Stack
 
 | Technology            | Description                                                  |
