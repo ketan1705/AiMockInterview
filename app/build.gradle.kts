@@ -104,9 +104,9 @@ dependencies {
     implementation(libs.firebase.bom)
 
     // lottie-animation
-    implementation("com.airbnb.android:lottie-compose:6.1.0")
+    implementation(libs.lottie.compose)
 
     // pdf text-extractor
-    implementation("com.itextpdf:itextg:5.5.10")
+    implementation(libs.itextg)
 
 }

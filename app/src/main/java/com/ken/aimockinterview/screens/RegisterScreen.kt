@@ -2,7 +2,6 @@ package com.ken.aimockinterview.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +24,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -47,7 +47,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ken.aimockinterview.components.CustomOutlinedTextField
-import com.ken.aimockinterview.navigation.Routes
 import com.ken.aimockinterview.viewmodels.RegisterViewModel
 import kotlinx.coroutines.launch
 
@@ -204,34 +203,7 @@ fun RegistrationScreen(
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
                 )
 
-                /*    OutlinedTextField(
-                        value = email, onValueChange = { email = it.trim() },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp),
-                        placeholder = { Text(text = "E-Mail") },
-                        singleLine = true,
-                        shape = CircleShape,
-                        isError = emailError != null,
-                        supportingText = {
-                            emailError?.let {
-                                Text(
-                                    text = it,
-                                    color = Color.Red,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                        }, leadingIcon = {
-                            Icon(
-                                Icons.Rounded.Email,
-                                contentDescription = null,
-                                tint = Color.Gray
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
-
-                    )*/
+           
 
                 Spacer(modifier = Modifier.height(5.dp))
                 CustomOutlinedTextField(
@@ -329,17 +301,18 @@ fun RegistrationScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    "I already have an account? Login", fontSize = 16.sp,
-                    style = MaterialTheme.typography.labelSmall,
-                    modifier = modifier
-                        .padding(vertical = 5.dp)
-                        .clickable {
-                            navController.navigate(Routes.Login)
-                        },
-                    textAlign = TextAlign.Center,
-                    color = Color.Blue.copy(0.7f)
-                )
+                TextButton(onClick = { navController.popBackStack() }) {
+                    Text(
+                        "I already have an account? Login", fontSize = 16.sp,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = modifier
+                            .padding(vertical = 5.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.Blue.copy(0.7f)
+                    )
+                }
+
+
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
@@ -350,7 +323,7 @@ fun RegistrationScreen(
                 if (state.value?.isSuccess?.isNotEmpty() == true) {
                     val success = state.value?.isSuccess
                     Toast.makeText(context, "$success", Toast.LENGTH_LONG).show()
-                    navController.navigate(Routes.Login)
+                    navController.popBackStack()
                 }
             }
         }

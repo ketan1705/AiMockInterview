@@ -2,7 +2,6 @@ package com.ken.aimockinterview.components
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
@@ -16,10 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ken.aimockinterview.ui.theme.secondaryLightBlue
 import com.ken.aimockinterview.utils.OnBoardingUtils
 import kotlinx.coroutines.launch
 
@@ -32,8 +31,8 @@ fun BoardingFooter(
     val scope = rememberCoroutineScope()
     Box(
         modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp, vertical = 50.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 30.dp)
     ) {
         if (pagerState.currentPage != 2) {
             Button(
@@ -46,7 +45,7 @@ fun BoardingFooter(
                 modifier = modifier
                     .align(Alignment.Companion.BottomEnd),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = secondaryLightBlue,
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 ), shape = RoundedCornerShape(10.dp)
 
@@ -74,7 +73,9 @@ fun BoardingFooter(
                     modifier = modifier
                         .align(Alignment.Companion.BottomStart),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
+//                        containerColor = MaterialTheme.colorScheme.primary,
+                        containerColor = secondaryLightBlue,
+
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     ), shape = RoundedCornerShape(10.dp)
 
@@ -100,14 +101,15 @@ fun BoardingFooter(
                     .fillMaxWidth()
                     .align(Alignment.Companion.BottomCenter),
                 colors = ButtonDefaults.buttonColors().copy(
-                    containerColor = Color(0xFF3F51B5)
+                    containerColor = secondaryLightBlue,
+//                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(
                     "Get Started",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Companion.Normal,
-                    color = Color.Companion.White,
                     modifier = modifier.padding(5.dp)
                 )
             }

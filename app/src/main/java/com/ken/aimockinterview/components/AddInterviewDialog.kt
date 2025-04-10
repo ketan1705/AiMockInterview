@@ -64,6 +64,7 @@ fun AddInterviewDialog(
     var isJobDescriptionEmpty by rememberSaveable { mutableStateOf(false) }
     var isYearsOfExperienceEmpty by rememberSaveable { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
+    var isResumeLoading by remember { mutableStateOf(false) }
 
     val geminiViewModel: GeminiViewModel = hiltViewModel()
     val state = geminiViewModel.resumeData.collectAsState()
@@ -91,6 +92,8 @@ fun AddInterviewDialog(
                     .padding(horizontal = 15.dp, vertical = 10.dp),
                 shape = MaterialTheme.shapes.medium
             ) {
+
+//                else
                 Column(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
@@ -122,7 +125,9 @@ fun AddInterviewDialog(
                     )
 
                     Spacer(Modifier.height(20.dp))
-                    TextExtractor()
+                    TextExtractor(onClick = {
+                        isResumeLoading = true
+                    })
                     /* CustomizedText("Please Uplaod Your Resume", Color.White)
 
                      OutlinedButton(
@@ -269,10 +274,14 @@ fun AddInterviewDialog(
                     }
 
                 }
+
+                if (isResumeLoading)
+                    CustomLoading()
             }
         }
 
         LaunchedEffect(state.value) {
+            isResumeLoading = false
             jobRole = state.value?.jobRole ?: ""
             jobDescription =
                 state.value?.technicalSkills?.takeIf { it.isNotEmpty() }?.joinToString(", ") ?: ""
