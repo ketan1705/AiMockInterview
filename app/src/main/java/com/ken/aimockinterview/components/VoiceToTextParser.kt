@@ -22,15 +22,15 @@ class VoiceToTextParser @Inject constructor(
     private val _state = MutableStateFlow(
         VoiceToTextParserState()
     )
+
     val state = _state.asStateFlow()
 
     //    val recognizer = SpeechRecognizer.createSpeechRecognizer(app)
-//    private var isManualStop = false  // Track if user manually stopped listening
+    //    private var isManualStop = false  // Track if user manually stopped listening
 
     init {
         recognizer.setRecognitionListener(this)
     }
-
 
     fun startListening(langCode: String = "en") {
         _state.update { VoiceToTextParserState() }
@@ -70,7 +70,6 @@ class VoiceToTextParser @Inject constructor(
         }
         recognizer.stopListening()
     }
-
 
     override fun onReadyForSpeech(p0: Bundle?) {
         _state.update {
@@ -118,11 +117,21 @@ class VoiceToTextParser @Inject constructor(
                     )
                 }
             }
-
     }
 
-    override fun onPartialResults(partialResult: Bundle?) = Unit
-
+    override fun onPartialResults(partialResult: Bundle?) {
+        partialResult
+            ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+//            ?.get(0)
+            ?.firstOrNull()
+            ?.let { result ->
+                _state.update {
+                    it.copy(
+                        spokenText = _state.value.spokenText + " " + result
+                    )
+                }
+            }
+    }
 
     override fun onEvent(p0: Int, p1: Bundle?) = Unit
 

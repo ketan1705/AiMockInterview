@@ -29,7 +29,8 @@ fun PDFPicker(modifier: Modifier = Modifier) {
                 }*/
     }
 
-    TextExtractor()
-    
+    TextExtractor() {
+        //
+    }
 
 }

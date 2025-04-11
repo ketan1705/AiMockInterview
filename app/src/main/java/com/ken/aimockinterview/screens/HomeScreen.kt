@@ -46,7 +46,6 @@ import androidx.navigation.NavController
 import com.ken.aimockinterview.MainActivity
 import com.ken.aimockinterview.components.AddInterviewDialog
 import com.ken.aimockinterview.components.LogoutConfirmationDialog
-import com.ken.aimockinterview.components.TextExtractor
 import com.ken.aimockinterview.components.TopHeader
 import com.ken.aimockinterview.models.InterviewDetails
 import com.ken.aimockinterview.navigation.Routes
@@ -68,19 +67,15 @@ fun HomeScreen(
     val loginViewModel: LoginViewModel = hiltViewModel()
     val homeViewModel: HomeViewModel = hiltViewModel()
     val state = loginViewModel.loginState.collectAsState(initial = null)
-
     val interviewList = homeViewModel.interviewList.collectAsState()
-
     val onBoardingUtils = remember {
         OnBoardingUtils(context = context)
     }
-
     val showDialog = rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     var logoutShowDialog by remember {
         mutableStateOf(false)
     }
-
     var showTextExtractor by remember {
         mutableStateOf(false)
     }
@@ -110,14 +105,9 @@ fun HomeScreen(
                 .padding(innerPadding)
         ) {
 
-            if (showTextExtractor) {
-                TextExtractor()
-            } else {
-
-                PreviousInterviewList(interviewList = interviewList.value, onClick = {
-                    showDialog.value = true
-                }, navController = navController)
-            }
+            PreviousInterviewList(interviewList = interviewList.value, onClick = {
+                showDialog.value = true
+            }, navController = navController)
 
             if (showDialog.value) {
                 AddInterviewDialog(
@@ -126,7 +116,7 @@ fun HomeScreen(
                     },
                     onNavigate = { jobRole, jobDescription, yearsOfExperience ->
                         showDialog.value = false
-                        navigateTOScreen(
+                        navigateToScreen(
                             navController = navController,
                             jobRole = jobRole,
                             jobDescription = jobDescription,
@@ -164,7 +154,7 @@ fun HomeScreen(
     }
 }
 
-fun navigateTOScreen(
+fun navigateToScreen(
     navController: NavController,
     jobRole: String,
     jobDescription: String,
@@ -323,8 +313,8 @@ fun PreviousItem(
             Text(
                 text = item.jobDescription,
                 style = MaterialTheme.typography.bodyMedium,
-                fontSize = 18.sp,
-                color = Color.Black.copy(0.75f),
+                fontSize = 16.sp,
+                color = Color.Black.copy(0.7f),
                 fontWeight = FontWeight.Medium,
                 modifier = modifier.padding(top = 5.dp)
             )
@@ -358,7 +348,7 @@ fun PreviousItem(
                 }
                 OutlinedButton(
                     onClick = {
-                        navigateTOScreen(
+                        navigateToScreen(
                             navController = navController,
                             jobRole = item.jobRole,
                             jobDescription = item.jobDescription,

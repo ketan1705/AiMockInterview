@@ -183,18 +183,6 @@ fun InterviewScreen(
                                 )
                                 currentQuestionIndex.intValue++
                             } else {
-                                /*geminiViewModel.addUserResponse(
-                                    UserAnswerResponse(
-                                        state.value[currentQuestionIndex.intValue].question,
-                                        state.value[currentQuestionIndex.intValue].answer,
-                                        userAns = userAnswer,
-                                        mockId = "",
-                                        feedback = "",
-                                        rating = "",
-                                        userId = "",
-                                        questionId = "Question_${currentQuestionIndex.intValue + 1}",
-                                    )
-                                )*/
                                 geminiViewModel.getFeedback(
                                     question = questionsList[currentQuestionIndex.intValue].question,
                                     userAnswer = userAnswer,
@@ -227,15 +215,19 @@ fun InterviewScreen(
         }
     }
 
-    LaunchedEffect(key1 = state.value) {
+    LaunchedEffect(key1 = state.value, key2 = questionsList) {
         if (state.value.isNotEmpty()) {
             questionsList = state.value
             isInterviewStarted.value = true
-        }
+        } else if (questionsList.isNotEmpty())
+            isInterviewStarted.value = true
     }
 
     LaunchedEffect(key1 = voiceToTextState.value.spokenText) {
-        userAnswer = userAnswer + voiceToTextState.value.spokenText
+        voiceToTextState.value.spokenText.takeIf { it.isNotBlank() }?.let { spokenText ->
+            userAnswer += spokenText
+        }
+
         Log.d(
             Constants.TAG,
             "Spoken Text: $userAnswer"

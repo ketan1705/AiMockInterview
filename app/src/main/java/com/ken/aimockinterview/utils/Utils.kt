@@ -27,5 +27,11 @@ class Utils {
         fun convertJsonToList(jsonString: String): List<QuesAnsModel> {
             return Json.decodeFromString(jsonString)
         }
+
+        fun getCurrentDate(): String {
+            val currentDate = Date()
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            return dateFormat.format(currentDate)
+        }
     }
 }

@@ -33,7 +33,7 @@ import kotlinx.coroutines.withContext
 import java.io.InputStream
 
 @Composable
-fun TextExtractor(modifier: Modifier = Modifier) {
+fun TextExtractor(modifier: Modifier = Modifier, onClick: () -> Unit) {
     val geminiViewModel: GeminiViewModel = hiltViewModel()
 
     val extractedText = remember {
@@ -52,6 +52,7 @@ fun TextExtractor(modifier: Modifier = Modifier) {
         pdfUri = uri
         uri?.let { uri ->
             scope.launch {
+                onClick()
                 val inputStream = ctx.contentResolver.openInputStream(uri)
                 extractData(extractedText, inputStream)
                 extractedText.let {

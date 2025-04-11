@@ -2,19 +2,18 @@ package com.ken.aimockinterview.screens
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -22,14 +21,16 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,7 +43,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -55,6 +58,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ken.aimockinterview.navigation.Routes
+import com.ken.aimockinterview.ui.theme.secondaryDarkBlue
+import com.ken.aimockinterview.ui.theme.secondaryLightBlue
+import com.ken.aimockinterview.ui.theme.secondaryMediumBlue
 import com.ken.aimockinterview.utils.Constants.TAG
 import com.ken.aimockinterview.utils.OnBoardingUtils
 import com.ken.aimockinterview.viewmodels.LoginViewModel
@@ -65,6 +71,7 @@ fun LoginScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
+
     val viewModel: LoginViewModel = hiltViewModel()
     val state = viewModel.loginState.collectAsState(initial = null)
     val context = LocalContext.current
@@ -80,6 +87,14 @@ fun LoginScreen(
     val utils by lazy {
         OnBoardingUtils(context)
     }
+
+    val fadeInAlpha by animateFloatAsState(targetValue = 1f, animationSpec = tween(1000))
+
+    val buttonScale by animateFloatAsState(
+        targetValue = if (state.value?.isLoading == true) 0.95f else 1f,
+        animationSpec = tween(durationMillis = 300)
+    )
+
 
     fun validateInputs(
         email: String,
@@ -107,8 +122,8 @@ fun LoginScreen(
                 passwordError = "Password must be at least 8 characters"
                 isValid = false
             }
-
             return Pair(isValid, Pair(emailError, passwordError))
+
         } catch (e: Exception) {
             Log.d(TAG, "error: ${e.localizedMessage}")
             throw e
@@ -116,57 +131,50 @@ fun LoginScreen(
     }
 
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.White),
         contentAlignment = Alignment.Center
     )
     {
         Card(
             modifier = modifier
-                .wrapContentSize()
-                .padding(30.dp)
+                .graphicsLayer(alpha = fadeInAlpha)
+                .padding(24.dp)
                 .clip(
-                    RoundedCornerShape(12.dp)
-                )
-                .background(Color.LightGray),
-            elevation = CardDefaults.cardElevation(20.dp)
+                    RoundedCornerShape(20.dp)
+                ),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFE3F2FD)),
+            elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
         ) {
+
             Column(
                 modifier = Modifier
-                    .padding(vertical = 32.dp, horizontal = 16.dp),
-                verticalArrangement = Arrangement.Center,
+                    .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
                     modifier = Modifier.padding(horizontal = 20.dp),
                     text = "Login To Your Account",
-                    textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center,
+                    fontSize = 28.sp,
                     style = MaterialTheme.typography.headlineMedium
                 )
-                Spacer(
-                    modifier = Modifier.height(40.dp)
-                )
-                /*
-                                Image(
-                                    painter = painterResource(R.drawable.img),
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .height(150.dp)
-                                        .width(150.dp)
-                                )
-                                Spacer(
-                                    modifier = Modifier.height(5.dp)
-                                )
-                */
+
+                Spacer(modifier = Modifier.height(35.dp))
+
+
                 OutlinedTextField(
-                    value = email, onValueChange = { email = it.trim() },
+                    value = email,
+                    onValueChange = { email = it.trim() },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
-                    placeholder = { Text(text = "E-Mail", color = Color.Black) },
+                        .fillMaxWidth(),
+                    placeholder = { Text(text = "E-Mail") },
                     singleLine = true,
                     isError = emailError != null,
                     supportingText = {
@@ -174,41 +182,49 @@ fun LoginScreen(
                             Text(
                                 it,
                                 color = Color.Red,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
+                                fontSize = 12.sp,
                             )
                         }
                     },
-                    shape = CircleShape,
+                    shape = RoundedCornerShape(50),
                     leadingIcon = {
                         Icon(
                             Icons.Rounded.Email,
                             contentDescription = null,
-                            tint = Color.Gray
+                            tint = secondaryLightBlue
                         )
                     },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = secondaryLightBlue,
+                        unfocusedBorderColor = Color.Gray,
+                        errorBorderColor = Color.Red
+                    ),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
                 )
+
                 Spacer(
-                    modifier = Modifier.height(5.dp)
+                    modifier = Modifier.height(12.dp)
                 )
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it.trim() },
                     singleLine = true,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
+                        .fillMaxWidth(),
                     placeholder = { Text(text = "Password", color = Color.Black) },
-                    shape = CircleShape,
+                    shape = RoundedCornerShape(50),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color(0xFF1565C0),
+                        unfocusedBorderColor = Color.Gray,
+                        errorBorderColor = Color.Red
+                    ),
                     isError = passwordError != null,
                     supportingText = {
                         passwordError?.let {
                             Text(
                                 it,
                                 color = Color.Red,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
+                                fontSize = 12.sp,
                             )
                         }
                     },
@@ -216,7 +232,7 @@ fun LoginScreen(
                         Icon(
                             Icons.Rounded.Lock,
                             contentDescription = null,
-                            tint = Color.Gray
+                            tint = secondaryLightBlue
                         )
                     },
                     trailingIcon = {
@@ -229,7 +245,7 @@ fun LoginScreen(
                                 } else {
                                     Icons.Default.Visibility
                                 },
-                                contentDescription = "Password"
+                                contentDescription = "Toggle Password"
                             )
                         }
                     },
@@ -237,9 +253,9 @@ fun LoginScreen(
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
                 )
                 Spacer(
-                    modifier = Modifier.height(10.dp)
+                    modifier = Modifier.height(24.dp)
                 )
-                OutlinedButton(
+                Button(
                     onClick = {
                         scope.launch {
                             keyboardController?.hide()
@@ -254,42 +270,54 @@ fun LoginScreen(
                             }
                         }
                     },
-                    modifier = modifier.fillMaxWidth(0.6f),
+                    modifier = Modifier
+                        .scale(buttonScale)
+                        .fillMaxWidth(0.6f)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(30.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = secondaryDarkBlue)
                 )
                 {
                     Text(
                         text = "Login", fontSize = 18.sp,
-                        color = Color.Black,
+                        color = Color.White,
                         style = MaterialTheme.typography.labelSmall,
-                        modifier = modifier.padding(vertical = 5.dp)
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
 
-                Spacer(modifier = Modifier.height(if (state.value?.isLoading == true) 7.dp else 0.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                )
-                {
-                    if (state.value?.isLoading == true) {
-                        CircularProgressIndicator()
+                /*    Spacer(modifier = Modifier.height(if (state.value?.isLoading == true) 7.dp else 0.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    )
+                    {
+                        if (state.value?.isLoading == true) {
+                            CircularProgressIndicator()
+                        }
+                    }*/
+                AnimatedVisibility(visible = state.value?.isLoading == true) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        CircularProgressIndicator(color = Color(0xFF1565C0))
                     }
                 }
 
                 Spacer(
-                    modifier = Modifier.height(16.dp)
+                    modifier = Modifier.height(20.dp)
                 )
 
                 Text(
-                    "Don't have an account? Register", fontSize = 16.sp,
-                    style = MaterialTheme.typography.labelSmall,
+                    "Don't have an account? Register",
                     modifier = modifier
-                        .padding(vertical = 5.dp)
                         .clickable {
                             navController.navigate(Routes.Register)
-                        },
-                    textAlign = TextAlign.Center,
-                    color = Color.Blue.copy(0.7f)
+                        }
+                        .padding(4.dp),
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = secondaryMediumBlue,
+                    textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
