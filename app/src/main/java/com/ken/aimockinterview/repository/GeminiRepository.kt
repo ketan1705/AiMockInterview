@@ -147,6 +147,7 @@ class GeminiRepository {
             }
 //        }
         } catch (e: Exception) {
+            _userRatingFeedback.value = null
             Log.e(Constants.TAG, "Error: ${e.message}")
             throw e
         }

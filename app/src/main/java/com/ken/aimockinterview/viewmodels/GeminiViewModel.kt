@@ -103,8 +103,8 @@ class GeminiViewModel @Inject constructor(
     fun addUserResponse(userAnsResp: UserAnswerResponse) {
         viewModelScope.launch {
             if (mockId.value.isNotEmpty() && userData.value.userId.isNotEmpty() && userRatingFeedback.value != null) {
-                userAnsResp.feedback = userRatingFeedback.value?.feedback ?: ""
-                userAnsResp.rating = userRatingFeedback.value?.rating ?: ""
+                userAnsResp.feedback = userRatingFeedback.value?.feedback ?: "Answer Not Given"
+                userAnsResp.rating = userRatingFeedback.value?.rating ?: "0"
                 userAnsResp.mockId = userAnsResp.mockId.ifEmpty { mockId.value }
                 userAnsResp.userId = userData.value.userId
                 userRepository.addUserResponse(mockId.value, userAnsResp)
