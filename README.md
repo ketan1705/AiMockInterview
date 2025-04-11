@@ -73,22 +73,51 @@ The **AI-Powered Mock Interview Android Application** is designed to assist user
 - [ ] Implement AI-driven question recommendations 🎯
 - [ ] Add voice-based answering feature 🎙️
 
-## ScreenShots
+## 📸 Screenshots
 
-![splash](https://github.com/user-attachments/assets/9e02cf1e-1805-4d11-9cef-eaac545fc434)
-![onboard1](https://github.com/user-attachments/assets/0b228a06-8c64-4185-841d-bba85cb6c4db)
-![onboard2](https://github.com/user-attachments/assets/7ec448d5-23cb-4a69-a545-70d73782b410)
-![onboard3](https://github.com/user-attachments/assets/2638ba53-c01f-439d-9373-f3d2aae5ad16)
-![register](https://github.com/user-attachments/assets/e2035f93-8821-4d24-b844-e41f4ff8120e)
-![login](https://github.com/user-attachments/assets/21d06a04-7246-4fb8-98e0-abec3cca3c39)
-![registervalidation](https://github.com/user-attachments/assets/9419e49d-ad74-4c7f-b352-245a5c3cb063)
-![loginvalidation](https://github.com/user-attachments/assets/8aca91eb-efa3-4db9-9b1d-633b172399e5)
-![home](https://github.com/user-attachments/assets/71fa6b81-d5dd-4661-8702-6ae2d564ddbd)
-![homeList](https://github.com/user-attachments/assets/2ec8d313-2467-4aac-b3d8-97be2b1c4a70)
-![addDetails](https://github.com/user-attachments/assets/05340e42-b32e-46d0-b5fe-2d59de41647a)
-![addwithdetails](https://github.com/user-attachments/assets/3e0ed0ee-0020-4a8f-8509-c5c163624bfa)
-![interviewdetail screen](https://github.com/user-attachments/assets/6029af23-6f3b-49da-ab9f-ee4664de6d81)
-![questionpanel](https://github.com/user-attachments/assets/bc7cb336-7895-424c-af07-f6fd6838ed90)
-![screenwithanswer](https://github.com/user-attachments/assets/c867e796-1c3a-4497-811a-80182fad2723)
-![Feedback](https://github.com/user-attachments/assets/906df958-bba8-4632-8e62-57932435738f)
-![Feedback1](https://github.com/user-attachments/assets/f30c8eef-febb-42f4-8090-7256ee8f282f)
+<h3>🚀 Splash & Onboarding</h3>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/9e02cf1e-1805-4d11-9cef-eaac545fc434" width="45%" />
+  <img src="https://github.com/user-attachments/assets/0b228a06-8c64-4185-841d-bba85cb6c4db" width="45%" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/7ec448d5-23cb-4a69-a545-70d73782b410" width="45%" />
+  <img src="https://github.com/user-attachments/assets/2638ba53-c01f-439d-9373-f3d2aae5ad16" width="45%" />
+</p>
+
+<h3>🔐 Register & Login</h3>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/e2035f93-8821-4d24-b844-e41f4ff8120e" width="45%" />
+  <img src="https://github.com/user-attachments/assets/21d06a04-7246-4fb8-98e0-abec3cca3c39" width="45%" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/9419e49d-ad74-4c7f-b352-245a5c3cb063" width="45%" />
+  <img src="https://github.com/user-attachments/assets/8aca91eb-efa3-4db9-9b1d-633b172399e5" width="45%" />
+</p>
+
+<h3>🏠 Home</h3>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/71fa6b81-d5dd-4661-8702-6ae2d564ddbd" width="45%" />
+  <img src="https://github.com/user-attachments/assets/2ec8d313-2467-4aac-b3d8-97be2b1c4a70" width="45%" />
+</p>
+
+<h3>📝 Add Details</h3>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/05340e42-b32e-46d0-b5fe-2d59de41647a" width="45%" />
+  <img src="https://github.com/user-attachments/assets/3e0ed0ee-0020-4a8f-8509-c5c163624bfa" width="45%" />
+</p>
+
+<h3>📋 Interview Details</h3>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/6029af23-6f3b-49da-ab9f-ee4664de6d81" width="45%" />
+  <img src="https://github.com/user-attachments/assets/bc7cb336-7895-424c-af07-f6fd6838ed90" width="45%" />
+</p>
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/c867e796-1c3a-4497-811a-80182fad2723" width="45%" />
+  <img src="https://github.com/user-attachments/assets/906df958-bba8-4632-8e62-57932435738f" width="45%" />
+</p>
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/f30c8eef-febb-42f4-8090-7256ee8f282f" width="45%" />
+</p>
