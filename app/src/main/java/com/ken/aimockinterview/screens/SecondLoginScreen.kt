@@ -87,8 +87,6 @@ fun SecondLoginScreen(
         targetValue = if (state.value?.isLoading == true) 0.95f else 1f,
         animationSpec = tween(durationMillis = 300)
     )
-
-
     fun validateInputs(
         email: String,
         password: String,

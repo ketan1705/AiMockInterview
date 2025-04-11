@@ -95,7 +95,6 @@ fun AuthScreenTEMP(
         targetValue = if (state.value?.isLoading == true) 0.95f else 1f,
         animationSpec = tween(durationMillis = 300)
     )
-
     fun validateInputs(): Boolean {
         var isValid = true
         nameError = null
