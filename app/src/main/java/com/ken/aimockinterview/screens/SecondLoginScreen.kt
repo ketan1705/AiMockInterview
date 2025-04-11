@@ -82,7 +82,6 @@ fun SecondLoginScreen(
     var passwordVisibility by remember { mutableStateOf(false) }
 
     val fadeInAlpha by animateFloatAsState(targetValue = 1f, animationSpec = tween(1000))
-
     val buttonScale by animateFloatAsState(
         targetValue = if (state.value?.isLoading == true) 0.95f else 1f,
         animationSpec = tween(durationMillis = 300)

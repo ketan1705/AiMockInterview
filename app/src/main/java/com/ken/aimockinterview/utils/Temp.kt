@@ -100,7 +100,6 @@ fun AuthScreenTEMP(
         nameError = null
         emailError = null
         passwordError = null
-
         if (authMode == AuthMode.REGISTER && name.isEmpty()) {
             nameError = "Name cannot be empty"
             isValid = false
